@@ -1,0 +1,38 @@
+Layer,Cost Component,Unit,Baseline Volume,3-year Out Projected Volume at Scale (Full Ent. Adoption),3-Year Scale Assumptions (Full Ent. Adoption)
+OS / Workbench,Foundry / Platform Users,Users,4000,50000,"500,000 current employees, 10% assumed to be corporate (20,000 IT, 30,000 Business/Commercial)"
+OS / Workbench,GitHub (Business),Developers,35,300,Developers needed to support 50K users
+OS / Workbench,Workbench Code/Users,Developers,150,350,Developers needed to support 50K users
+OS / Workbench,Data Movement,TB (6 worker nodes x 950 TB/node processing),5700,9849.6,Assume 20% CAGR
+OS / Workbench,AI Pipeline (Data Movement Runs),"Monthly pipeline runs (15K, 10x/day, 30 days)",4500000,9886500.000000002,Assume 30% CAGR
+Agent,AI Foundry,Actions (M),25,54.92500000000001,Assume 30% CAGR
+Agent,Connected agents runtime,Agents,10,2500,Assume 5% active users at any given time. 2500 agents need to be ready and listening on standby. 
+Agent,Multi-Agent Workflows,Runs,20000,54879.999999999985,"40% CAGR due to agent chaining, which accelerates usage"
+Agent,Agent Storage,GB,100,1000,"10x assumed since a production level agent is generally faster with less memory usage, but with more frequent actions. Capped by retention constraints."
+Agent,Agent Storage,RU/s,40000,87880.00000000001,"30% CAGR, but storage is capped by retention constraints"
+Agent,Agent Engine Requests,Requests/mo. (orchestration),5000000,12301875.000000002,"35% CAGR as agent concurrency and orchestration depth increase across domains, even when per-agent request volume stabilizes"
+Agent,Cloud Run,"2 vCPU, 8 GB RAM, 100 worker nodes (AI Frontend)",5,100,Cloud run rate is anticipated to 20x
+Agent,Agent State Capacity Band,"100k documents per day, 50TB",3,100,Agent state expected to grow significantly
+Model,Tier A Input (Advanced LLM),40% of 30B tokens,12000000000,32000000000,Token consumption is anticipated to increase significantly as users scale. Users will ~13x. A conservative estimate would be around 100B total tokens per month across token cost components
+Model,Tier A Output (Advanced LLM),40% of 7.5B tokens,3000000000,8000000000,Token consumption is anticipated to increase significantly as users scale. Users will ~13x. A conservative estimate would be around 100B total tokens per month across token cost components
+Model,Tier A Input mini flash (Advanced LLM),40% of 30B tokens,12000000000,32000000000,Token consumption is anticipated to increase significantly as users scale. Users will ~13x. A conservative estimate would be around 100B total tokens per month across token cost components
+Model,Tier A Output mini flash (Advanced LLM),40% of 7.5B tokens,3000000000,8000000000,Token consumption is anticipated to increase significantly as users scale. Users will ~13x. A conservative estimate would be around 100B total tokens per month across token cost components
+Model,Tier B Input (Efficient LLM),20% of 30B tokens,6000000000,16000000000,Token consumption is anticipated to increase significantly as users scale. Users will ~13x. A conservative estimate would be around 100B total tokens per month across token cost components
+Model,Tier B Output (Efficient LLM),20% of 7.5B tokens,1500000000,4000000000,Token consumption is anticipated to increase significantly as users scale. Users will ~13x. A conservative estimate would be around 100B total tokens per month across token cost components
+Model,AI Search (Vector),"730 Service Hours (estimate ~30 days, 24/7 for Standard Tier + Uptime)",10,100,10x growth can be expected
+Model,Prompt Flow (eval),Tier 1 (50M API Calls; spend above $50M is discounted for adtl. Tiers),5,50,10x growth can be expected
+Model,Model Garden (fine-tuning),TPUs finetuning/month,10,25,"Once data is relatively consistent, there is not much fine-tuning to do at scale"
+Data Foundation (Platform),Cloud / Data Lake Storage,"GB (Assumes 25PB total storage, 2.5PB transfer/mo.)",25000000,35000000,"15% typical growth in data storage even for stable/stagnant large-scale companies. Additional context from Athi was that currently (before AI foundation/agents at scale), about 100TB of new data are created/added per month (1.2PB annual). Assume this growth and factor in some natural growth with the 15% rate to increase by about 10PB"
+Data Foundation (Platform),Backup Servers,"730 Service Hours (estimate ~30 days, 24/7 for serverless SQL)",10,15,Backup server growth is relatively stable even at scale
+Data Foundation (Platform),Catalog Assets,Assets,50000,86400,"20% rate accounts for tables, views and feature growth"
+Data Foundation (Platform),Spark,1M vCPU-hrs,1,2,"30% rate in line with transformations and ML pipeline growth; do not need to follow 10x in users, but should straddle some of data growth"
+Data Foundation (Platform),Query Storage,"GB query logic storage, 200 slots for active queries (based on logical storage and active slots)",50000,100000,"The more users the more queries that will occur. Since the data grows at a generally slower rate, it requires on catching. Once catching is saturated, growth should cap"
+Data Foundation (Platform),Query Compute,"TB/mo queried, 20TB active storage ",200,1000,"The more users the more queries that will occur. Agents will hit BigQuery frequently. Queries will vary from 50000 active users. At any given time, 5% will be querying the system. Some queries will be reused. Conservatively assume 5x"
+Data Foundation (Platform),SQL Compute (DBU),DBCU/mo.,8500000,20913187.500000004,~35% growth in data storage because prod apps should be much more efficienct so we need to increase with volume of users but no need to consider testing; theoretically it should be performing well and not scale with the 10x user growth
+Data Foundation (Infra),Standard Logic Apps,Interactions with apps,500000,1400000,30% CAGR because scales with automation coverage rather than data volume or token consumption
+Data Foundation (Infra),Standard API Management,1 Base + 5 Scale,5,20,This will scale alongside OS/workbench developer growth around 4x on average
+Data Foundation (Infra),Application Insights,GB logs,500,1098.5000000000002,"Logs grow in line with pipelines. As the system is in prod, you turn off all debugging logs and mainly track critical failure logs (performance when it is actually running)"
+Data Foundation (Infra),GPU Compute,Hours,80000,196830.00000000003,35% CAGR accounts for GPU and TPU workloads scaling faster than CPU workloads due to model training and embedded generation. Once we pass prod environment it will not scale as much and we will become much more efficient in runs
+Data Foundation (Infra),TPU Compute,Hours,80000,196830.00000000003,35% CAGR accounts for GPU and TPU workloads scaling faster than CPU workloads due to model training and embedded generation. Once we pass prod environment it will not scale as much and we will become much more efficient in runs
+Data Foundation (Infra),Cloud Functions,Invocations (K),100000,2000000,30% because scales with automation breadth not agent depth
+Data Foundation (Infra),API Calls,API Calls,10000000,21970000.000000004,30% because scales with automation breadth not agent depth. Does not necessarily grow when agents start doing more inference steps
+Data Foundation (Infra),Cloud Monitoring (App Insights),GB logs,500,1098.5000000000002,"Log volume compounds as pipelines, workflows, and agents scale. Observability growth historically outpaces compute growth"
