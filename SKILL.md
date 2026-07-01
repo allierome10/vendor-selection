@@ -28,6 +28,7 @@ Turn ambiguous enterprise technology questions into clear, decision-ready assess
 ### 1. Intake mode
 - **Free response** — the user describes the situation in their own words; you parse it into the framework and only ask for what's genuinely missing.
 - **Guided intake** — you walk the user through the structured intake questionnaire (see "Guided Intake" below). Default for users who want help scoping.
+- **Mixed free / guided intake** — mostly guided, but leaning on free response. Use the structured intake questionnaire as the backbone, but invite the user to answer in their own words and elaborate freely; parse those open answers into the framework and only formally pose the guided questions that remain genuinely unanswered. A middle path for users who want the structure of the questionnaire without a rigid, one-question-at-a-time interrogation.
 
 ### 2. Available information
 - **Client documents available** — request and ingest whatever the client/user has: business requirement docs, technical requirement docs, current tech-stack inventory, consumption/commitment agreements, architecture diagrams, data estate descriptions, roadmaps. The more provided, the higher the confidence and the more client-specific the grading.
